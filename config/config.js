@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 *      Database params
 */
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev'; ///esto define si estamos en desarrollo local o ya en produccion
-}
+
 
 const mongoUSR = 'coffeadmin';
 const mongoPSW = 'djjLEh2RUHKRQv4w';
