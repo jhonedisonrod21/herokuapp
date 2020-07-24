@@ -1,20 +1,19 @@
 const express = require('express');
 const {UserModel} = require('../models/User');
 const bcrypt = require('bcrypt');
-const _ = require('underscore')
-
-var UserController = express();
+const _ = require('underscore');
+const {tokenVerification,adminVerification} = require('../middlewares/authenication');
 const route = '/users';                     //defines the default route to all methods
 const defaultFrom = 0;                      //defines the default start point to paging
 const defaultPageCount = 5;                 //defines the default page count for the requests
+var UserController = express();
 
-
-UserController.get(route,(req,res)=>{
-    let from = Number(req.query.from)|| defaultFrom;
+UserController.get(route,tokenVerification,(req,res)=>{
+       
+    let from = Number(req.query.from) || defaultFrom;
     let itemsPerPage = Number(req.query.itemsPerPage) || defaultPageCount;  
-    let condition ={
-        state:true
-    }
+    let condition ={ state:true }
+
     UserModel.find(condition,'name email role state google img') //aqui se coloca el condicional para la consulta
     .skip(from) 
     .limit(itemsPerPage) 
@@ -23,7 +22,7 @@ UserController.get(route,(req,res)=>{
             ok:false,
             resume:err
         });
-        else  {
+        else {
             UserModel.count(condition,(err,counter)=>{ // aqui se colocala misma condicion del 
                 res.status(200).json({
                     ok:true,
@@ -36,7 +35,7 @@ UserController.get(route,(req,res)=>{
 
 });
 
-UserController.post(route,(req,res)=>{
+UserController.post(route,[tokenVerification,adminVerification],(req,res)=>{
     var data = req.body;
     var NewUser = UserModel({
         name:data.name,
@@ -59,7 +58,7 @@ UserController.post(route,(req,res)=>{
     });
 });
 
-UserController.put(route + '/:id',(req,res)=>{
+UserController.put(route + '/:id',[tokenVerification,adminVerification],(req,res)=>{
     let id = req.params.id;
     let data = _.pick(req.body,['name','email','img','role','state']);//seleccionamos los objetos actualizables para evitar modificaciones indeseadas
 
@@ -75,7 +74,7 @@ UserController.put(route + '/:id',(req,res)=>{
     });
 });
 
-UserController.delete(route + '/:id',(req,res)=>{
+UserController.delete(route + '/:id',[tokenVerification,adminVerification],(req,res)=>{
     UserModel.findByIdAndRemove(req.params.id,{},(err,result)=>{
         if(err){ 
             return res.status(400).json({
@@ -107,7 +106,7 @@ UserController.delete(route + '/:id',(req,res)=>{
     })
 });
 
-UserController.delete(route + '_cons/:id',(req,res)=>{  // desactiva al usuario en lugar de eliminarlo por completo
+UserController.delete(route + '_cons/:id',[tokenVerification,adminVerification],(req,res)=>{  // desactiva al usuario en lugar de eliminarlo por completo
     let statusChange ={
         state:false
     }
