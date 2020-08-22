@@ -24,6 +24,12 @@ process.env.JWT_EXP_TIME = process.env.JWT_EXP_TIME || 60*60*24*30;
 
 
 /*
+*   google client id:
+*
+*/
+process.env.GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "219589353212-6ms86kbrue22hlr4uqesf2h9tk8h3mtt.apps.googleusercontent.com";
+
+/*
 *      module
 */
 module.exports = {

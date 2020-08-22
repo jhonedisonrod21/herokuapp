@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const {port,mongoURI} = require('./config/config');                          
 const {GlobalController} = require('./controllers/GlobalController')
 var app = express();
+app.use(express.static(__dirname+'/public'));
 app.use(GlobalController);
 
 mongoose.connect(mongoURI,{useNewUrlParser: true,useUnifiedTopology: true,useCreateIndex:true},(err)=>{
