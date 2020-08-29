@@ -20,7 +20,7 @@ if(process.env.NODE_ENV === 'dev'){
 *   expiration time
 */
 process.env.JWT_SIGNATURE = process.env.JWT_SIGNATURE || 'developmenttokensignaure';//gXV9ZrKrHdZu3jAcWRKag6hzX
-process.env.JWT_EXP_TIME = process.env.JWT_EXP_TIME || 60*60*24*30;
+process.env.JWT_EXP_TIME = process.env.JWT_EXP_TIME || '48h';
 
 
 /*

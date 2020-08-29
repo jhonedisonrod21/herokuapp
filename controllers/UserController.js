@@ -1,6 +1,6 @@
 const express = require('express');
 const {UserModel} = require('../models/User');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt'); 
 const _ = require('underscore');
 const {tokenVerification,adminVerification} = require('../middlewares/authenication');
 const route = '/users';                     //defines the default route to all methods
