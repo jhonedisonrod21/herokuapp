@@ -4,6 +4,10 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 var productoSchema = new Schema({
+  img: {
+    type: String,
+    required: false
+  },
   nombre: {
     type: String,
     required: [true, 'El nombre es necesario']

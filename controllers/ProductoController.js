@@ -1,8 +1,6 @@
 const express = require('express');
 const {ProductoModel} = require('../models/Producto');
-const bcrypt = require('bcrypt');
 const {tokenVerification} = require('../middlewares/authenication');
-const { request } = require('express');
 var ProductoController = express();
 
 // obtener todos los  productos usando el populate del usuario y la categoria

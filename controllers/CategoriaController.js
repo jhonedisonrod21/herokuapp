@@ -1,8 +1,6 @@
 const express = require('express');
 const {CategoriaModel} = require('../models/Categoria');
-const bcrypt = require('bcrypt');
 const {tokenVerification,adminVerification} = require('../middlewares/authenication');
-               //defines the default page count for the requests
 var CategoriaController = express();
 
 CategoriaController.get('/categoria',tokenVerification,(req,res)=>{ // todas las categorias
